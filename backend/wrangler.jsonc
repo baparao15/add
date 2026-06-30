@@ -1,0 +1,6 @@
+{
+  "name": "express-backend",
+  "main": "index.js",
+  "compatibility_date": "2026-06-30",
+  "compatibility_flags": ["nodejs_compat"]
+}

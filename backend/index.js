@@ -1,30 +1,33 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
 
+    if (url.pathname === "/" && request.method === "GET") {
+      return Response.json({ message: "Backend is running" });
+    }
 
-app.use(express.json());
-app.use(cors());
-const port = 3000;
+    if (url.pathname === "/users" && request.method === "GET") {
+      return Response.json({ message: "Request from GET method" });
+    }
 
-app.get("/users",(req,res)=>{
-    res.json({message:"Request from get method"});
-});
+    if (url.pathname === "/users" && request.method === "POST") {
+      const body = await request.json();
 
-app.post("/users",(req,res)=>{
-    res.json({
+      return Response.json({
         message: "User Created",
-        data: req.body,
-    });
-});
+        data: body
+      });
+    }
 
-app.post("/add",(req,res)=>{
-    const {a,b}=req.body;
-    const sum = a+b;
-    res.json({
-        message:"success",
-        data:sum,
-    });
-});
+    if (url.pathname === "/add" && request.method === "POST") {
+      const body = await request.json();
 
-app.listen(port);
+      return Response.json({
+        message: "success",
+        data: Number(body.a) + Number(body.b)
+      });
+    }
+
+    return Response.json({ message: "Route not found" }, { status: 404 });
+  }
+};
