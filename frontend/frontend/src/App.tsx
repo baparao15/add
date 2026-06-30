@@ -8,7 +8,7 @@ function App() {
 
   const addNumbers = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/add", {
+      const res = await axios.post("https://add.baparao2005.workers.dev/add", {
         a: Number(a),
         b: Number(b),
       });
